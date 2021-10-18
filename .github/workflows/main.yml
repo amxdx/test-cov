@@ -38,7 +38,6 @@ jobs:
       - name: Install dependencies
         run: |
           python -m pip install --upgrade pip
-          cd code1/
           pip install -r ./code1/requirements.txt
       
       - name: Test with pytest
