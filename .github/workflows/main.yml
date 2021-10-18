@@ -25,6 +25,9 @@ jobs:
               - 'code2/**'
               
   service1:
+    name: Service1
+    needs: change_detection
+    if: ${{ needs.change_detection.outputs.service1 == 'true' }}
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v2
@@ -36,7 +39,7 @@ jobs:
         run: |
           python -m pip install --upgrade pip
           cd code1/
-          pip install -r requirements.txt
+          pip install -r /code1/requirements.txt
       
       - name: Test with pytest
         run: |
@@ -53,6 +56,9 @@ jobs:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
           
   service2:
+    name: Service2
+    needs: change_detection
+    if: ${{ needs.change_detection.outputs.service2 == 'true' }}
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v2
@@ -63,8 +69,7 @@ jobs:
       - name: Install dependencies
         run: |
           python -m pip install --upgrade pip
-          cd code2/
-          pip install -r requirements.txt
+          pip install -r ./code1/requirements.txt
       
       - name: Test with pytest
         run: |
