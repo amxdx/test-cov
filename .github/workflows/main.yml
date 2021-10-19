@@ -30,9 +30,6 @@ jobs:
     if: ${{ needs.change_detection.outputs.service1 == 'true' }}
     runs-on: ubuntu-latest
     steps:
-      - name: Set version
-        run: echo MY_TAG=${{ steps.time.outputs.time }}-$GITHUB_RUN_NUMBER >> $GITHUB_ENV
-        
       - uses: actions/checkout@v2
       - name: Install Python 3
         uses: actions/setup-python@v1
@@ -53,7 +50,7 @@ jobs:
         run: coveralls --service=github
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-          COVERALLS_FLAG_NAME: ${{MY_TAG}}-S1
+          COVERALLS_FLAG_NAME: ${{ steps.time.outputs.time }}-$GITHUB_RUN_NUMBER
           COVERALLS_PARALLEL: true
           
           
@@ -63,8 +60,6 @@ jobs:
     if: ${{ needs.change_detection.outputs.service2 == 'true' }}
     runs-on: ubuntu-latest
     steps:
-      - name: Set version
-        run: echo MY_TAG=${{ steps.time.outputs.time }}-$GITHUB_RUN_NUMBER >> $GITHUB_ENV
       - uses: actions/checkout@v2
       - name: Install Python 3
         uses: actions/setup-python@v1
@@ -85,7 +80,7 @@ jobs:
         run: coveralls --service=github
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-          COVERALLS_FLAG_NAME: ${{MY_TAG}}-S2
+          COVERALLS_FLAG_NAME: ${{ steps.time.outputs.time }}-$GITHUB_RUN_NUMBER
           COVERALLS_PARALLEL: true
   
   finish:
