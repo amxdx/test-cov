@@ -23,8 +23,6 @@ jobs:
               - 'code1/**'
             service2:
               - 'code2/**'
-      - name: Set version
-        run: echo MY_TAG=${{ steps.time.outputs.time }}-$GITHUB_RUN_NUMBER >> $GITHUB_ENV
               
   service1:
     name: Service1
@@ -32,6 +30,9 @@ jobs:
     if: ${{ needs.change_detection.outputs.service1 == 'true' }}
     runs-on: ubuntu-latest
     steps:
+      - name: Set version
+        run: echo MY_TAG=${{ steps.time.outputs.time }}-$GITHUB_RUN_NUMBER >> $GITHUB_ENV
+        
       - uses: actions/checkout@v2
       - name: Install Python 3
         uses: actions/setup-python@v1
@@ -62,6 +63,8 @@ jobs:
     if: ${{ needs.change_detection.outputs.service2 == 'true' }}
     runs-on: ubuntu-latest
     steps:
+      - name: Set version
+        run: echo MY_TAG=${{ steps.time.outputs.time }}-$GITHUB_RUN_NUMBER >> $GITHUB_ENV
       - uses: actions/checkout@v2
       - name: Install Python 3
         uses: actions/setup-python@v1
