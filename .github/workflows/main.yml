@@ -53,6 +53,7 @@ jobs:
           coveralls --service=github
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          COVERALLS_PARALLEL: true
           
   service2:
     name: Service2
@@ -83,3 +84,4 @@ jobs:
           coveralls --service=github
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          COVERALLS_PARALLEL: true
