@@ -50,7 +50,7 @@ jobs:
         run: coveralls --service=github
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-          COVERALLS_FLAG_NAME: ${{ steps.time.outputs.time }}-$GITHUB_RUN_NUMBER
+          COVERALLS_FLAG_NAME: Service1
           COVERALLS_PARALLEL: true
           
           
@@ -80,7 +80,7 @@ jobs:
         run: coveralls --service=github
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-          COVERALLS_FLAG_NAME: ${{ steps.time.outputs.time }}-$GITHUB_RUN_NUMBER
+          COVERALLS_FLAG_NAME: Service2
           COVERALLS_PARALLEL: true
   
   finish:
