@@ -48,12 +48,12 @@ jobs:
           cd code1/
           python -m pytest --cov=.
         
-      - name: Coveralls
-        uses: coverallsapp/github-action@master
-        with:
-          github-token: ${{ secrets.GITHUB_TOKEN }}
-          flag-name: run-${{env.MY_TAG}}-s1
-          parallel: true
+      - name: Upload coverage data to coveralls.io
+        run: coveralls --service=github
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          COVERALLS_FLAG_NAME: ${{MY_TAG}}-S1
+          COVERALLS_PARALLEL: true
           
           
   service2:
@@ -78,15 +78,16 @@ jobs:
           cd code2/
           python -m pytest --cov=.
         
-      - name: Coveralls
-        uses: coverallsapp/github-action@master
-        with:
-          github-token: ${{ secrets.GITHUB_TOKEN }}
-          flag-name: run-${{env.MY_TAG}}-s2
-          parallel: true
+      - name: Upload coverage data to coveralls.io
+        run: coveralls --service=github
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          COVERALLS_FLAG_NAME: ${{MY_TAG}}-S2
+          COVERALLS_PARALLEL: true
   
   finish:
     needs: change_detection
+    if: ${{ needs.change_detection.outputs == 'true'}}
     runs-on: ubuntu-latest
     steps:
     - name: Coveralls Finished
