@@ -44,7 +44,7 @@ jobs:
         run: |
           pip install pytest-cov
           cd code1/
-          python -m pytest --cov=code1 .
+          python -m pytest --cov=.
         
       - name: Upload coverage data to coveralls.io
         run: |
@@ -74,7 +74,7 @@ jobs:
         run: |
           pip install pytest-cov
           cd code2/
-          python -m pytest --cov=code2 .
+          python -m pytest --cov=.
         
       - name: Upload coverage data to coveralls.io
         run: |
