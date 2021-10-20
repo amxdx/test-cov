@@ -88,8 +88,8 @@ jobs:
           COVERALLS_PARALLEL: true
   
   finish:
-    needs: change_detection
-    if: ${{ needs.change_detection.outputs == 'true'}}
+    needs: [service1, service2, change_detection]
+    if: ${{ needs.change_detection.outputs == 'true' && always() }}
     runs-on: ubuntu-latest
     steps:
     - name: Coveralls Finished
