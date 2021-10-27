@@ -89,7 +89,7 @@ jobs:
   
   finish:
     needs: [service1, service2, change_detection]
-    if: ${{ needs.change_detection.outputs == 'true' && always() }}
+    if: ${{ (needs.change_detection.outputs.service2 == 'true' || needs.change_detection.outputs.service1 == 'true')  && always() }}
     runs-on: ubuntu-latest
     steps:
     - name: Coveralls Finished
